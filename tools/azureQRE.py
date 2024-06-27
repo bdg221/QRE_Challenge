@@ -17,10 +17,14 @@ def submit_azure_qre(
     errorBudget: Dict[str, float] = None,
 ):
 
-    workspace = Workspace(
-        resource_id=os.getenv("AZURE_RESOURCE_ID"),  # Your resource_id
-        location="West US",  # Your workspace location (for example, "westus")
-    )
+    try:
+        workspace = Workspace(
+            resource_id=os.getenv("AZURE_RESOURCE_ID"),  # Your resource_id
+            location="West US",  # Your workspace location (for example, "westus")
+        )
+    except:
+        print("AZURE_RESOURCE_ID environment variable must be set")
+        raise
 
     provider = AzureQuantumProvider(workspace)
 
